@@ -118,7 +118,7 @@ app.index = function () {
       '<div id="search-box-title">Find packages...</div>' +
       '<div id="search-box-input">' +
         '<input id="search-input"></input>' +
-        '<span class="browse-link">or <a href="/#/_browse/all">browse packages</a>.</span>' +
+        '<span>or</span><a href="/#/_browse/all" class="button">Browse packages</a><div class="clear"></div>' +
       '</div>' +
     '</div>' +
     '<div id="main-container">' +

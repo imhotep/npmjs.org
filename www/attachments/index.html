@@ -6,7 +6,7 @@
     <meta name="description" content="">
 
     <title>npm registry</title>
-    <link href="layout.css" rel="stylesheet" type="text/css">
+    <link href="/layout.css" rel="stylesheet" type="text/css">
     <!-- could also go to
          http://registry.npmjs.org/-/rss?descending=true&limit=50 -->
     <link rel="alternate" type="application/rss+xml"
@@ -20,12 +20,20 @@
 
   <body>
     <div id="body-container">
-      <div id="title"><a href="/" title="Home">npm registry</a></div>
-      <div id="totals"></div>
+      <div id="header">
+        <h1><a href="/" title="Home">Cordova Plugins</a></h1>
+      </div>
+      
+      <div id="totals">
+      </div>
 
-      <div id="content"></div>
+      <div class="grid">
+        <div id="content" class="wrap">
+        </div>
+      </div>
+
     </div>
-    <div id="footer">
+    <div id="footer" class="wrap">
       <div id="howto">
         <div class="howto-link">How To:</div> 
         <div class="howto-link"><a href="http://npmjs.org/doc/README.html">Install npm</a></div>
