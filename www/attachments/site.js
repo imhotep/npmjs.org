@@ -113,12 +113,14 @@ app.index = function () {
     , limit = 15
     ;
   clearContent();
+  $('#tabs a').removeClass('selected');
+  $('#tabs a.tab-find').addClass('selected');
+
   $('div#content').html(
+  '' +
     '<div id="search-box">' +
-      '<div id="search-box-title">Find packages...</div>' +
       '<div id="search-box-input">' +
         '<input id="search-input"></input>' +
-        '<span>or</span><a href="/#/_browse/all" class="button">Browse packages</a><div class="clear"></div>' +
       '</div>' +
     '</div>' +
     '<div id="main-container">' +
@@ -596,6 +598,9 @@ app.browse = function () {
   )
   .appendTo('div#content')
   
+  $('#tabs a').removeClass('selected');
+  $('#tabs a.tab-browse').addClass('selected');
+
   var c = $('<div id="main-container"></div>')
     .appendTo('div#content')
     ;
@@ -936,6 +941,8 @@ $(function () {
     });
     this.get("#/_more", function () {
       clearContent();
+      $('#tabs a').removeClass('selected');
+      $('#tabs a.tab-more').addClass('selected');
       request({url:'/more.html', dataType:'html'}, function (e, resp) {
         $('div#content').html('<div id="main-container">'+resp+'</div>');
       })
