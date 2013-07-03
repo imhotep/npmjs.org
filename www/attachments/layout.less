@@ -6,19 +6,32 @@
     border-radius: @radius;
 }
 
-@highlight-color: #4cc2e4;
+.transition ( @type: all, @sec: 0.25s ) {
+    -webkit-transition: @type @sec linear;
+    -moz-transition: @type @sec linear;
+    transition: @type @sec linear;
+}
 
+@highlight-color: #4cc2e4;
+@font-color: #3b4854;
+
+@import "font/style.css";
 
 /* ----- font ----- */
 
 html {
     font-size: 17px;
     font-family: 'HelveticaNeue-Light', Helvetica, Arial, sans-serif;
-    color: #3b4854;
+    color: @font-color;
 } 
 
 h1 {
-    font-size: 2em;
+    font-size: 1.8em;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1.2em;
     font-weight: normal;
 }
 
@@ -63,10 +76,9 @@ a.dep-link {
     padding: 10px 16px;
     color: #fff;
     font-size: 1.5em;
+    text-align: center;
     text-decoration: none;
-    -webkit-transition: background 0.25s linear;
-    -moz-transition: background 0.25s linear;
-    transition: background 0.25s linear;
+    .transition( background );
     border-top: 4px solid @highlight-color;
     border-bottom: 4px solid darken(@highlight-color,10%);
 
@@ -85,6 +97,23 @@ a.dep-link {
     position: relative;
     z-index: 3;
     margin-bottom: -3px;
+
+    a {
+        .transition( color );
+        color: @font-color;
+        position: relative;
+
+        &:hover {
+            color: @highlight-color;
+        }
+
+        &:before {
+            font-size: 1.5em;
+            position: absolute;
+            left: -35px;
+            top: -3px;
+        }
+    }
 }
 
 
@@ -130,20 +159,37 @@ a.dep-link {
 }
 
 #browse-anchors {
-    margin-left:10%;
-    margin-right:10%;
-    width:80%;
 
     a {
         margin-right:20px;
         padding: 3px 5px 3px 5px;
-        background-color:white;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
+        background-color: #fff;
+        // .border-radius( 5px );
+
+        display: inline-block;
+        background-color: @highlight-color;
+        margin-right: 8px;
+        padding: 4px 12px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        .transition( background );
+        border-bottom: 2px solid darken(@highlight-color,10%);
+
+        &:hover {
+        background-color: #4cd6fc;
+        color: #fff;
+    }
     }
 }
 
+
+#main-container {
+    background: #fff;
+    margin: 30px 0;
+    padding: 2% 5%;
+    .border-radius( 5px );
+}
 
 
 /* ----- footer ---- */
@@ -153,14 +199,7 @@ a.dep-link {
 }
 
 
-
-div#main-container {
-  background-color:white;
-  margin:30px 5%;
-  padding: 2% 5%;
-  border-radius: 15px;
-  width:80%;
-}
+/* ----- everything else ----- */
 
 div#results {
   font-size:20px;
@@ -210,11 +249,12 @@ div.pkg-link {
 div#latest-packages {
   width:45%;
   float:left;
+  margin-right: 5%;
 }
 
 div#top-dep-packages {
   width:45%;
-  padding-left:10%;
+  margin-left:5%;
   float:left;
 }
 
@@ -366,11 +406,4 @@ div#more {
   position:fixed;
   bottom:18px;
   right:30px;
-}
-div#bottom-liner {
-  position:fixed;
-  bottom:0px;
-  height:18px;
-  width:100%;
-  background-color: #EBEBEB;
 }
