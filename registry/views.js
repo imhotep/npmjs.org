@@ -1,6 +1,16 @@
 
 var views = module.exports = exports = {}
 
+views.noCDN = { map: function (doc) {
+  if (!doc.versions || Object.keys(doc.versions).length === 0)
+    return
+  Object.keys(doc.versions).forEach(function(v) {
+    if (doc.versions[v].dist.cdn)
+      return
+    emit([doc._id, v], 1)
+  })
+}, reduce: "_sum" }
+
 views.updated = {map: function (doc) {
   var l = doc["dist-tags"].latest
     , t = doc.time && doc.time[l]
@@ -10,6 +20,13 @@ views.updated = {map: function (doc) {
 views.listAll = {
   map : function (doc) { return emit(doc._id, doc) }
 }
+
+views.allVersions = { map: function(doc) {
+  if (!doc || !doc.versions)
+    return
+  for (var i in doc.versions)
+    emit([i, doc._id], 1)
+}, reduce: "_sum" }
 
 views.modified = { map: modifiedTimeMap }
 function modifiedTimeMap (doc) {
@@ -24,6 +41,20 @@ function modifiedTimeMap (doc) {
   var t = new Date(time)
   emit(t.getTime(), doc)
 }
+
+views.modifiedPackage = { map: function (doc) {
+  if (!doc.versions || doc.deprecated) return
+  if (doc._id.match(/^npm-test-.+$/) &&
+      doc.maintainers &&
+      doc.maintainers[0].name === 'isaacs')
+    return
+  var latest = doc["dist-tags"].latest
+  if (!doc.versions[latest]) return
+  var time = doc.time && doc.time[latest] || 0
+  var t = new Date(time)
+  emit([doc._id, t.getTime()], doc)
+}}
+
 
 views.noShasum = { map: function (doc) {
   if (!doc || !doc.versions)
